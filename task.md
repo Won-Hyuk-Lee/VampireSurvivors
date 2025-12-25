@@ -55,23 +55,29 @@
 | `PlayerAttack.cs` | 자동 공격 시스템 (타겟팅, 다중 투사체) | ✅ |
 | `Projectile.cs` | 투사체 클래스 (PoolableObject 상속, 관통) | ✅ |
 
-### 4. Monster System
+### 4. Monster System ✅ 완료
 > 경로: `Assets/Scripts/Monster/`, `Assets/Scripts/Data/`
 
-- [ ] `MonsterDataSO` ScriptableObject 정의 (체력, 이동속도, 공격력, 경험치 등)
-- [ ] `MonsterBase` 추상 클래스 구현 (플레이어 추적, 피격, 사망)
-- [ ] 기본 몬스터 클래스 구현 (IPoolable 적용)
+| 파일 | 설명 | 상태 |
+|------|------|------|
+| `MonsterDataSO.cs` | 몬스터 스탯 SO (체력, 이동속도, 접촉데미지, 경험치 등) | ✅ |
+| `MonsterBase.cs` | 몬스터 추상 클래스 (플레이어 추적, 넉백, 보상 드롭) | ✅ |
+| `BasicMonster.cs` | 기본 몬스터 구현 (PoolableObject 상속) | ✅ |
 
-### 5. Monster Spawner
-> 경로: `Assets/Scripts/Spawner/`
+### 5. Monster Spawner ✅ 완료
+> 경로: `Assets/Scripts/Spawner/`, `Assets/Scripts/Data/`
 
-- [ ] `SpawnDataSO` ScriptableObject 정의 (스폰 간격, 몬스터 종류, 난이도 곡선)
-- [ ] `MonsterSpawner` 클래스 구현 (화면 밖 랜덤 위치 스폰)
+| 파일 | 설명 | 상태 |
+|------|------|------|
+| `SpawnDataSO.cs` | 스폰 설정 SO (웨이브, 보스, 난이도 곡선) | ✅ |
+| `MonsterSpawner.cs` | 몬스터 스포너 (화면 밖 랜덤 위치, 풀링 연동) | ✅ |
 
-### 6. Camera
+### 6. Camera ✅ 완료
 > 경로: `Assets/Scripts/Camera/`
 
-- [ ] `CameraFollow` 클래스 구현 (플레이어 추적, 스무스 이동)
+| 파일 | 설명 | 상태 |
+|------|------|------|
+| `CameraFollow.cs` | 카메라 추적 (스무스 이동, 경계 제한, 화면 흔들림) | ✅ |
 
 ---
 
@@ -94,8 +100,9 @@ Assets/
 │   ├── Editor/          ✅ 완료
 │   ├── Core/            ✅ 완료 (Object Pooling)
 │   ├── Character/       ✅ 완료 (Player, Attack, Projectile)
-│   ├── Monster/         (MonsterBase, Spawner)
-│   ├── Camera/          (CameraFollow)
+│   ├── Monster/         ✅ 완료 (MonsterBase, BasicMonster)
+│   ├── Spawner/         ✅ 완료 (MonsterSpawner)
+│   ├── Camera/          ✅ 완료 (CameraFollow)
 │   └── Data/            ✅ 완료 (ScriptableObjects 클래스)
 ├── ScriptableObjects/   (데이터 에셋)
 ├── Prefabs/

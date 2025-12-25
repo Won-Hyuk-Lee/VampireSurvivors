@@ -44,14 +44,16 @@
 | `PoolableObject.cs` | IPoolable 구현 기본 MonoBehaviour 클래스 | ✅ |
 | `PoolManager.cs` | 여러 풀을 중앙 관리하는 싱글톤 | ✅ |
 
-### 3. Character System
+### 3. Character System ✅ 완료
 > 경로: `Assets/Scripts/Character/`, `Assets/Scripts/Data/`
 
-- [ ] `CharacterDataSO` ScriptableObject 정의 (체력, 이동속도, 공격력 등)
-- [ ] `CharacterBase` 추상 클래스 구현 (공통 로직)
-- [ ] `Player` 클래스 구현 (입력 처리, 이동)
-- [ ] `PlayerAttack` 클래스 구현 (기본 공격 로직)
-- [ ] `Projectile` 클래스 구현 (투사체, IPoolable 적용)
+| 파일 | 설명 | 상태 |
+|------|------|------|
+| `CharacterDataSO.cs` | 캐릭터 스탯 ScriptableObject (체력, 이동속도, 공격력 등) | ✅ |
+| `CharacterBase.cs` | 캐릭터 추상 클래스 (이동, 피격, 사망, 무적 등) | ✅ |
+| `Player.cs` | 플레이어 클래스 (입력 처리, 경험치, 레벨업) | ✅ |
+| `PlayerAttack.cs` | 자동 공격 시스템 (타겟팅, 다중 투사체) | ✅ |
+| `Projectile.cs` | 투사체 클래스 (PoolableObject 상속, 관통) | ✅ |
 
 ### 4. Monster System
 > 경로: `Assets/Scripts/Monster/`, `Assets/Scripts/Data/`
@@ -91,10 +93,10 @@ Assets/
 │   ├── Utilities/       ✅ 완료
 │   ├── Editor/          ✅ 완료
 │   ├── Core/            ✅ 완료 (Object Pooling)
-│   ├── Character/       (Player, Attack)
+│   ├── Character/       ✅ 완료 (Player, Attack, Projectile)
 │   ├── Monster/         (MonsterBase, Spawner)
 │   ├── Camera/          (CameraFollow)
-│   └── Data/            (ScriptableObjects 클래스)
+│   └── Data/            ✅ 완료 (ScriptableObjects 클래스)
 ├── ScriptableObjects/   (데이터 에셋)
 ├── Prefabs/
 ├── Scenes/

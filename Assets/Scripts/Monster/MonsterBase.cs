@@ -478,7 +478,7 @@ namespace VampireSurvivors.Monster
 
             // 사망 이벤트 발생
             OnDeath?.Invoke();
-            EventManager.TriggerEvent(GameEvents.MONSTER_KILLED, gameObject);
+            EventManager.Instance.Publish(GameEvents.OnMonsterDeath, gameObject);
 
             // 사망 처리
             OnDie();
@@ -518,7 +518,7 @@ namespace VampireSurvivors.Monster
             if (goldAmount > 0)
             {
                 // 골드 드롭 이벤트
-                EventManager.TriggerEvent(GameEvents.GOLD_DROPPED, goldAmount);
+                EventManager.Instance.Publish(GameEvents.OnGoldDropped, goldAmount);
             }
         }
 

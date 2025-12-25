@@ -111,17 +111,20 @@ namespace VampireSurvivors.Spawner
             InitializePool();
 
             // 이벤트 구독
-            EventManager.StartListening(GameEvents.GAME_START, OnGameStart);
-            EventManager.StartListening(GameEvents.GAME_OVER, OnGameOver);
-            EventManager.StartListening(GameEvents.MONSTER_KILLED, OnMonsterKilled);
+            EventManager.Instance.Subscribe(GameEvents.OnGameStart, OnGameStart);
+            EventManager.Instance.Subscribe(GameEvents.OnGameOver, OnGameOver);
+            EventManager.Instance.Subscribe<GameObject>(GameEvents.OnMonsterDeath, OnMonsterKilled);
         }
 
         private void OnDestroy()
         {
             // 이벤트 구독 해제
-            EventManager.StopListening(GameEvents.GAME_START, OnGameStart);
-            EventManager.StopListening(GameEvents.GAME_OVER, OnGameOver);
-            EventManager.StopListening(GameEvents.MONSTER_KILLED, OnMonsterKilled);
+            if (EventManager.Instance != null)
+            {
+                EventManager.Instance.Unsubscribe(GameEvents.OnGameStart, OnGameStart);
+                EventManager.Instance.Unsubscribe(GameEvents.OnGameOver, OnGameOver);
+                EventManager.Instance.Unsubscribe<GameObject>(GameEvents.OnMonsterDeath, OnMonsterKilled);
+            }
         }
 
         private void Update()
@@ -472,7 +475,7 @@ namespace VampireSurvivors.Spawner
             SpawnMonster(bossEntry.bossData, spawnPos, bossEntry.healthMultiplier, 1f);
 
             // 보스 등장 이벤트
-            EventManager.TriggerEvent(GameEvents.BOSS_SPAWNED, bossEntry.bossData);
+            EventManager.Instance.Publish(GameEvents.OnBossSpawned, bossEntry.bossData);
 
             if (_debugLog)
             {
@@ -523,38 +526,34 @@ namespace VampireSurvivors.Spawner
 
         #region 이벤트 핸들러
 
-        private void OnGameStart(object data)
+        private void OnGameStart()
         {
             StartSpawning();
         }
 
-        private void OnGameOver(object data)
+        private void OnGameOver()
         {
             StopSpawning();
         }
 
-        private void OnMonsterKilled(object data)
+        private void OnMonsterKilled(GameObject monsterObj)
         {
             _activeMonsterCount = Mathf.Max(0, _activeMonsterCount - 1);
 
             // 리스트에서 제거
-            if (data is GameObject monsterObj)
+            if (monsterObj != null)
             {
                 var monster = monsterObj.GetComponent<MonsterBase>();
                 if (monster != null)
                 {
                     _activeMonsters.Remove(monster);
                 }
-            }
 
-            // 보스 처치 시 일반 스폰 재개
-            if (_normalSpawnPaused && data is GameObject obj)
-            {
-                var monsterBase = obj.GetComponent<MonsterBase>();
-                if (monsterBase != null && monsterBase.MonsterData != null && monsterBase.MonsterData.IsBoss)
+                // 보스 처치 시 일반 스폰 재개
+                if (_normalSpawnPaused && monster != null && monster.MonsterData != null && monster.MonsterData.IsBoss)
                 {
                     _normalSpawnPaused = false;
-                    EventManager.TriggerEvent(GameEvents.BOSS_DEFEATED, monsterBase.MonsterData);
+                    EventManager.Instance.Publish(GameEvents.OnBossDefeated, monster.MonsterData);
                 }
             }
         }

@@ -125,7 +125,7 @@ namespace VampireSurvivors.Character
             OnExpChanged?.Invoke(_currentExp, ExpToNextLevel);
 
             // 게임 매니저에 플레이어 등록
-            EventManager.TriggerEvent(GameEvents.PLAYER_SPAWNED, gameObject);
+            EventManager.Instance.Publish(GameEvents.OnPlayerSpawned, gameObject);
         }
 
         protected override void Update()
@@ -231,7 +231,7 @@ namespace VampireSurvivors.Character
 
             // 레벨업 이벤트
             OnLevelUp?.Invoke(_level);
-            EventManager.TriggerEvent(GameEvents.PLAYER_LEVEL_UP, _level);
+            EventManager.Instance.Publish(GameEvents.OnPlayerLevelUp, _level);
 
             // 체력 완전 회복 (선택적)
             Heal(MaxHealth);
@@ -255,7 +255,7 @@ namespace VampireSurvivors.Character
             if (item == null) return;
 
             OnItemCollected?.Invoke(item);
-            EventManager.TriggerEvent(GameEvents.ITEM_COLLECTED, item);
+            EventManager.Instance.Publish(GameEvents.OnItemCollected, item);
         }
 
         #endregion
@@ -267,7 +267,7 @@ namespace VampireSurvivors.Character
             base.OnTakeDamage(damage, attacker);
 
             // 플레이어 피격 이벤트
-            EventManager.TriggerEvent(GameEvents.PLAYER_DAMAGED, damage);
+            EventManager.Instance.Publish(GameEvents.OnPlayerDamaged, damage);
 
             // 카메라 흔들림 등 추가 효과를 여기에 구현
         }
@@ -277,12 +277,12 @@ namespace VampireSurvivors.Character
             Debug.Log("[Player] 플레이어 사망!");
 
             // 게임 오버 이벤트 발생
-            EventManager.TriggerEvent(GameEvents.PLAYER_DIED);
+            EventManager.Instance.Publish(GameEvents.OnPlayerDeath);
 
             // 게임 매니저에 게임 오버 알림
             if (GameManager.Instance != null)
             {
-                GameManager.Instance.SetGameState(GameState.GameOver);
+                GameManager.Instance.GameOver();
             }
 
             // 부모 클래스의 OnDie는 호출하지 않음 (오브젝트 비활성화 방지)

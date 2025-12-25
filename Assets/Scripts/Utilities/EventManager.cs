@@ -254,5 +254,23 @@ namespace VampireSurvivors.Utilities
 
         /// <summary>무기 업그레이드 이벤트 (파라미터: WeaponData weapon, int newLevel)</summary>
         public const string OnWeaponUpgrade = "OnWeaponUpgrade";
+
+        /// <summary>플레이어 스폰 이벤트 (파라미터: GameObject player)</summary>
+        public const string OnPlayerSpawned = "OnPlayerSpawned";
+
+        /// <summary>플레이어 피격 이벤트 (파라미터: float damage)</summary>
+        public const string OnPlayerDamaged = "OnPlayerDamaged";
+
+        /// <summary>아이템 수집 이벤트 (파라미터: GameObject item)</summary>
+        public const string OnItemCollected = "OnItemCollected";
+
+        /// <summary>골드 드롭 이벤트 (파라미터: int amount)</summary>
+        public const string OnGoldDropped = "OnGoldDropped";
+
+        /// <summary>보스 스폰 이벤트 (파라미터: MonsterDataSO bossData)</summary>
+        public const string OnBossSpawned = "OnBossSpawned";
+
+        /// <summary>보스 처치 이벤트 (파라미터: MonsterDataSO bossData)</summary>
+        public const string OnBossDefeated = "OnBossDefeated";
     }
 }
